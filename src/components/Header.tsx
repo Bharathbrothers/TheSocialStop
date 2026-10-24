@@ -11,6 +11,7 @@ interface HeaderProps {
   onNewPost: () => void;
   onOpenSettings: () => void;
   onOpenGitHubPages: () => void;
+  onOpenPasskeyModal?: () => void;
   activeTab: 'home' | 'author' | 'about';
   setActiveTab: (tab: 'home' | 'author' | 'about') => void;
   searchQuery: string;
@@ -25,6 +26,7 @@ export const Header: React.FC<HeaderProps> = ({
   onNewPost,
   onOpenSettings,
   onOpenGitHubPages,
+  onOpenPasskeyModal,
   activeTab,
   setActiveTab,
   searchQuery,
@@ -65,31 +67,30 @@ export const Header: React.FC<HeaderProps> = ({
             <Search className="w-4 h-4" />
           </button>
 
-          {/* GitHub Pages Setup Button */}
-          <button
-            onClick={onOpenGitHubPages}
-            className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-stone-700 hover:text-stone-900 bg-stone-100 hover:bg-stone-200 rounded-full transition-colors cursor-pointer border border-stone-200/80"
-          >
-            <Github className="w-3.5 h-3.5" />
-            <span>GitHub Pages</span>
-          </button>
-
-          {/* Google Sheets Status / Settings */}
-          <button
-            onClick={onOpenSettings}
-            className="inline-flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 text-xs font-semibold text-emerald-800 bg-emerald-50 hover:bg-emerald-100 border border-emerald-200/80 rounded-full transition-colors cursor-pointer"
-            title="Configure Google Sheets backend"
-          >
-            <Table className="w-3.5 h-3.5 text-emerald-600" />
-            <span className="hidden md:inline">
-              {settings.appsScriptUrl ? 'Sheets Backend' : 'Connect Sheets'}
-            </span>
-            <CheckCircle2 className="w-3 h-3 text-emerald-600" />
-          </button>
-
-          {/* Author Mode / Passkey Unlock */}
+          {/* Author-only Controls (Hidden completely from readers) */}
           {isAuthor ? (
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-2 sm:gap-2.5">
+              {/* GitHub Pages Setup Guide */}
+              <button
+                onClick={onOpenGitHubPages}
+                className="hidden md:inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-stone-700 hover:text-stone-900 bg-stone-100 hover:bg-stone-200 rounded-full transition-colors cursor-pointer border border-stone-200"
+                title="GitHub Pages Deployment Guide"
+              >
+                <Github className="w-3.5 h-3.5" />
+                <span>Pages Guide</span>
+              </button>
+
+              {/* Backend Settings */}
+              <button
+                onClick={onOpenSettings}
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-stone-700 hover:text-stone-900 bg-stone-100 hover:bg-stone-200 rounded-full transition-colors cursor-pointer border border-stone-200"
+                title="Configure Backend Settings"
+              >
+                <Settings className="w-3.5 h-3.5 text-stone-600" />
+                <span className="hidden sm:inline">Settings</span>
+              </button>
+
+              {/* Write New Post */}
               <button
                 onClick={onNewPost}
                 className="inline-flex items-center gap-1.5 px-3.5 py-1.5 text-xs sm:text-sm font-semibold text-white bg-orange-600 hover:bg-orange-700 rounded-full transition-all shadow-xs cursor-pointer active:scale-95"
@@ -97,22 +98,25 @@ export const Header: React.FC<HeaderProps> = ({
                 <PenSquare className="w-3.5 h-3.5" />
                 <span>Write</span>
               </button>
+
+              {/* Logout / Lock Session */}
               <button
                 onClick={onLogoutAuthor}
-                className="p-1.5 text-emerald-700 hover:text-stone-600 rounded-full hover:bg-stone-100 transition-colors cursor-pointer"
+                className="p-1.5 text-stone-500 hover:text-red-600 rounded-full hover:bg-stone-100 transition-colors cursor-pointer"
                 title="Author Studio unlocked (Click to lock session)"
               >
-                <Unlock className="w-4 h-4" />
+                <Unlock className="w-4 h-4 text-emerald-600" />
               </button>
             </div>
           ) : (
+            /* Subtle Author Login for Blog Owner (discreet lock icon) */
             <button
-              onClick={() => setShowPasskeyModal(true)}
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-stone-700 hover:text-stone-900 bg-stone-100 hover:bg-stone-200 rounded-full transition-colors cursor-pointer border border-stone-200"
-              title="Author Login with passkey"
+              onClick={onOpenPasskeyModal ? onOpenPasskeyModal : () => setShowPasskeyModal(true)}
+              className="p-2 text-stone-400 hover:text-stone-700 hover:bg-stone-100 rounded-full transition-colors cursor-pointer"
+              title="Author Login"
+              aria-label="Author Login"
             >
-              <Lock className="w-3.5 h-3.5 text-stone-500" />
-              <span className="hidden sm:inline">Author Mode</span>
+              <Lock className="w-4 h-4" />
             </button>
           )}
         </div>
@@ -160,8 +164,8 @@ export const Header: React.FC<HeaderProps> = ({
           </button>
         </nav>
 
-        <div className="hidden md:block text-[11px] text-stone-400 italic">
-          Google Sheets Headless CMS • GitHub Pages Ready
+        <div className="hidden md:block text-[11px] text-stone-400">
+          Independent Publication by {settings.authorName}
         </div>
       </div>
 

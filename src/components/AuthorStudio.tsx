@@ -111,23 +111,43 @@ export const AuthorStudio: React.FC<AuthorStudioProps> = ({
           </div>
 
           {/* Top Actions */}
-          <div className="flex items-center gap-2.5 flex-wrap sm:flex-nowrap">
+          <div className="flex items-center gap-2 flex-wrap sm:flex-nowrap">
+            <button
+              type="button"
+              onClick={onOpenSettings}
+              className="inline-flex items-center gap-1.5 px-3 py-2 bg-stone-100 hover:bg-stone-200 text-stone-700 text-xs sm:text-sm font-semibold rounded-xl transition-colors cursor-pointer border border-stone-200"
+              title="Configure Google Sheets backend & publication branding"
+            >
+              <Settings className="w-4 h-4 text-stone-600" />
+              <span>Settings</span>
+            </button>
+
+            <button
+              type="button"
+              onClick={onOpenGitHubPages}
+              className="inline-flex items-center gap-1.5 px-3 py-2 bg-stone-100 hover:bg-stone-200 text-stone-700 text-xs sm:text-sm font-semibold rounded-xl transition-colors cursor-pointer border border-stone-200"
+              title="View GitHub Pages deployment guide & Apps Script connector"
+            >
+              <FileText className="w-4 h-4 text-stone-600" />
+              <span>Pages Guide</span>
+            </button>
+
             <button
               type="button"
               onClick={onNewPost}
-              className="inline-flex items-center gap-2 px-4 py-2.5 bg-orange-600 hover:bg-orange-700 text-white text-xs sm:text-sm font-semibold rounded-xl shadow-xs transition-all cursor-pointer active:scale-95"
+              className="inline-flex items-center gap-2 px-4 py-2 bg-orange-600 hover:bg-orange-700 text-white text-xs sm:text-sm font-semibold rounded-xl shadow-xs transition-all cursor-pointer active:scale-95"
             >
               <PenSquare className="w-4 h-4" />
-              <span>Write New Article</span>
+              <span>New Article</span>
             </button>
 
             <button
               type="button"
               onClick={onSwitchToReaderView}
-              className="inline-flex items-center gap-1.5 px-3.5 py-2.5 bg-stone-100 hover:bg-stone-200 text-stone-700 text-xs sm:text-sm font-semibold rounded-xl transition-colors cursor-pointer border border-stone-200"
+              className="inline-flex items-center gap-1.5 px-3 py-2 bg-white hover:bg-stone-50 text-stone-700 text-xs sm:text-sm font-semibold rounded-xl transition-colors cursor-pointer border border-stone-200"
               title="Preview publication as a reader"
             >
-              <Globe className="w-4 h-4" />
+              <Globe className="w-4 h-4 text-stone-500" />
               <span>Reader View</span>
             </button>
           </div>
