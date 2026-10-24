@@ -1,14 +1,15 @@
 import { Post, Comment, BlogSettings } from '../types/blog';
+import { BLOG_CONFIG } from '../blog.config';
 
 export const DEFAULT_SETTINGS: BlogSettings = {
-  publicationName: "The Substack Chronicle",
-  publicationTagline: "Deep dives on systems thinking, thoughtful engineering, and writing online.",
-  authorName: "Bharath Sathuri",
-  authorBio: "Software architect and essayist writing about digital gardens, static web craftsmanship, and open protocols.",
-  authorAvatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=256&h=256&q=80",
-  spreadsheetId: "",
-  appsScriptUrl: "",
-  backendMode: "local"
+  publicationName: BLOG_CONFIG.publicationName,
+  publicationTagline: BLOG_CONFIG.publicationTagline,
+  authorName: BLOG_CONFIG.authorName,
+  authorBio: BLOG_CONFIG.authorBio,
+  authorAvatar: BLOG_CONFIG.authorAvatar,
+  spreadsheetId: BLOG_CONFIG.spreadsheetId,
+  appsScriptUrl: BLOG_CONFIG.appsScriptUrl,
+  backendMode: BLOG_CONFIG.appsScriptUrl ? "apps-script" : (BLOG_CONFIG.spreadsheetId ? "public-sheet" : "local")
 };
 
 export const INITIAL_POSTS: Post[] = [
