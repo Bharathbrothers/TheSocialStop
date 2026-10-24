@@ -1,0 +1,6 @@
+{
+  "name": "InkSheet - Substack-Style Blog",
+  "description": "A Substack-inspired publication engine powered by Google Sheets backend with markdown editor and reader comments.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
