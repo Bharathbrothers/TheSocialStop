@@ -36,6 +36,8 @@ jobs:
 
       - name: Build static site
         run: npm run build
+        env:
+          VITE_APPS_SCRIPT_URL: ${{ secrets.VITE_APPS_SCRIPT_URL }}
 
       - name: Upload artifact for GitHub Pages
         uses: actions/upload-pages-artifact@v3
